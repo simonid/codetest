@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Bing</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <link href="css/style.css" rel="stylesheet"> -->
+        <style>
+        	
+        	body{background-color: #333;}  
+    .bg-div{position:relative;background-image: url(../river.jpg);width:1228px;height:690px;margin: 0 auto;}  
+    .logo{background-image: url(../logo.png);height:53px;width: 107px; float: left;margin: -4px 18px 0 0;}  
+    .search-form{float: left; background-color: #fff;padding:5px;}  
+    .search-text{height:25px;line-height: 25px;float: left;width: 350px;border: 0;outline: none;}  
+    .search-button{background-image: url(../search-button.png);width:29px;height:29px;float: left;border: 0}  
+    .search-box{position:absolute;top:150px;left: 200px; }  
+    .suggest{width:388px; background-color:#fff;position:absolute;margin:0;padding:0;border-width:1px;border-style:solid;border-color: #999;}  
+    .suggest ul{list-style:none;display:block;margin:0;padding:0}  
+    .suggest ul li {padding:3px;line-height:25px;font-size: 14px;color: #777;cursor: pointer;padding:3px;}  
+    .suggest ul li:hover{background-color:#e5e5e5;text-decoration: underline;}  
+    .suggest strong{color:#000;} 
+
+        </style>
+    </head>
+    <body>
+    
+        <div class="bg-div">
+        	<div class="search-box">
+        		<div class="logo"></div>
+        		<form action="https://cn.bing.com/search" class="search-form" id="search-form" target="_blank">
+        			<input type="text" name="1" autocomplate="off" id="search_input" class="search-text">
+        			<input type="submit" value="" class="search-button">
+        		</form>
+        	</div>
+        </div>
+		<div class="suggest" id="search-suggest" style="display:none;">
+			<ul id="search-result">
+				<li>1</li>
+				<li>2</li>
+			</ul>
+		</div>
+
+		<script>
+			var getDOM = function(id){
+				return document.getElementById(id);
+			};
+			var addEvent = function(id,event,fn){
+				var el = getDOM(id)||document;
+				if(el.addEventListener){
+					el.addEventListener(event,fn,false);
+				}else if(el.attachEvent{
+					el.attachEvent("on"+event,fn);
+				}
+			};
+
+			var getElementLeft = function(element){
+				var actualLeft = element.offsetLeft;
+				var current = element.offsetParent;
+				while(current!=null){
+					actualLeft += current.offsetLeft;
+					current = current.offsetParent;
+				}
+				return actualLeft;
+			};
+			var getElementTop = function(element){
+				var actualTop = element.offsetTop;
+				var current = element.offsetParent;
+				while(current!=null){
+					actualTop+=current.offsetTop;
+					current=current.offsetParent;
+				}
+				return actualTop;
+			};
+			var ajaxget = function(url,callback){
+				var xhr = null;
+				if(window.new XMLHttpRequest){
+					xhr = new window.XMLHttpRequest();
+				}else if(window.ActiveXObject){
+					xhr = new ActiveXObject("Msxml2.XMLHTTP");
+				}
+				xhr.onreadystatechange = function(){
+					if(xhr.readyState==4&&xhr.status==200){
+						callback(JSON.parse(xhr.responseText));
+					}
+				}
+				xhr.open("get",url,false);
+				xhr.send(null);
+			}
+			var delegateEvent = function(target,event,fn){
+				addEvent(document,event,function(e){
+					if(e.target.nodeName==target.toUpperCase()){
+						fn..call(e.target);
+					}
+				})
+			}
+			var index = 0;
+			var searchDOM = getDOM("search-suggest");
+			var searchText;
+			var Arr = [];
+			addEvent("search_input","keyup",function(){
+				searchText = getDOM("search_input").value;
+				Arr.push(searchText);
+				console.log("Arr:"+Arr[0]);
+				ajaxget("http://api.bing.com/qsonhs.aspx?q="+Arr[0],function(d){
+					var d = d.AS.Results[-].Suggests;
+					var html = '';
+					for(var i=0;i<d.length;i++){
+						html+="<li>" + d[i].Txt + "</li>"
+					}
+					getDOM("search-result").innerHTML = html;
+					searchDOM.style.top = getEelementTop(getDOM("search-form")) + 38 + "px";
+					searchDOM.style.left = getElementLeft(getDOM("search-form")) + 'px';
+					searchDOM.style.position = "absolute";
+					searchDOM.style.display = "block";
+
+					var num = getDOM("search-result").childNodes.length;
+					this.onkeyup = function(e){
+						if(e.keyCode == 40){
+							console.log("dom:"+index);
+							index++;
+							getDOM("search-result").childNodes[index-1].style.backgroundColor = "#e5e5e5e";
+							getDOM("search-result").childNodes[index-1].style.textDecoration = "underline";
+							getDOM("search_input").value = d[index-1].Txt;
+							if(index==num){
+								index = 0;
+							}
+							console.log("after:"+index);
+							console.log(d[index-1].Txt);
+						}else if(e.keyCode==38){
+							index--;
+							console.log("up:"+index);
+							if(index>0&&index<num){
+								getDOM("search-result").childNodes[index-1].style.backgroundColor = "#e5e5e5";
+								getDOM("search-result").childNodes[index-1].style.textDecoration = "underline";
+								getDOM("search_input").value = d[index-1].Txt;
+								index--;
+							}
+							if(index==-1){
+								getDOM("search-result").childNodes[num-2].style.backgroundColor = "#e5e5e5";
+								getDOM("search-result").childNodes[num-2].style.textDecoration = "underline";
+								getDOM("search_input").value = d[num-2].Txt;
+								index = num - 1;
+							}
+							console.log(d[index-1].Txt);
+						}
+					}
+				});
+			});
+			delegateEvent("li","click",function(){
+				var keyword = this.innerHTML;
+				location.href='https://cn.bing.com/search?q='+keyword;  
+			});
+		</script>
+    </body>
+</html>
