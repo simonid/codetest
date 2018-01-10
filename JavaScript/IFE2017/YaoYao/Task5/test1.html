@@ -274,28 +274,35 @@ button:active{
 				var left = parseInt(block.style.left);
 				if(left >= 50){
 					block.style.left = left - 50 + 'px';
+					console.log("left:"+block.style.left);
 				}
 			}
 
 			function turnRight(){
 				var top = parseInt(block.style.top);
 				var left = parseInt(block.style.left);
-				if(left <= 400)
+				if(left <= 400){
 					block.style.left = left + 50 + 'px';
+					console.log("left:"+block.style.left);
+				}	
 			}
 
 			function turnTop(){
 				var top = parseInt(block.style.top);
 				var left = parseInt(block.style.left);
-				if(top <= 400)
-					block.style.top = top + 50 + 'px';
+				if(top > 0){
+					block.style.top = top - 50 + 'px';
+					console.log("top:"+block.style.top);
+				}
 			}
 
 			function turnBack(){
 				var top = parseInt(block.style.top);
 				var left = parseInt(block.style.left);
-				if(top <= 400)
+				if(top < 450){
 					block.style.top = top + 50 + 'px'; 
+					console.log("top:"+block.style.top);
+				}
 			}
 
 			function moveLeft(){
