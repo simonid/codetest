@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>表单（二）多个表单项的动态校验</title>
+	<!-- <link rel="stylesheet" href=""> -->
+	<style>
+			@media screen and (max-width: 500px){
+				.form-table{
+					margin: 50px auto;
+					width: 100%;
+				}
+			}
+
+			@media screen and (min-width: 500px){
+				.form-table{
+					margin: 50px auto;
+					width: 60%;
+				}
+			}
+
+			.form-table td{
+				padding-right: 1rem;
+				box-sizing: border-box;
+			}
+
+			.form-table tr td:nth-child(1){
+				width:25%;
+			}
+
+			.form-table tr td:nth-child(2){
+				width:75%;
+			}
+
+			.form-row-main-label{
+				font-size: 0.95rem;
+				font-weight: bold;
+				text-align: right;
+			}
+
+			.form-row-main-input{
+				padding: 0.5rem 0.3rem;
+				border-radius: 0.2rem;
+				width: 100%;
+			}
+
+			.form-row-main-input-normal{
+				border: 1.8px solid #ACAAAA;
+			}
+
+			.form-row-main-input-ok{
+				border: 1.8px solid #187AFF;
+			}
+
+			.form-row-main-input-error{
+				border: 1.8px solid #FB5353;
+			}
+
+			.form-input-hint{
+				font-size: 0.8rem;
+			}
+
+			.form-input-hint-normal{
+				color: #666;
+			}
+
+			.form-input-hint-ok{
+				color: #187AFF;
+			}
+
+			.form-input-hint-error{
+				color:#FB5353;
+			}
+
+			.form-submit-btn{
+				border: none;
+				border-radius: 0.5rem;
+				color: #fff;
+				font-weight: bold;
+				padding: 0.7rem 2.2rem;
+				background-color: #2f79ba;
+				cursor: pointer;
+
+				outline: none;
+			}
+
+			.form-submit-btn-wrapper{
+				text-align: right;
+				padding-top:0.7rem;
+			}
+
+			.form-submit-btn:hover{
+				background-color: #5A31FA;
+			}
+
+			.form-submit-btn:active{
+				background-color: #B44CFE;
+			}
+
+			.form-input-hint{
+				visibility: hidden;
+			}
+
+
+	</style>
+</head>
+<body>
+	
+	    <form action="#" method="post">
+    	<table class="form-table">
+    		<!-- start -->
+    		<tr class="form-row-main">
+    			<td class="form-row-main-label"><label for="userName">名称</label></td>
+    			<td>
+    				<input type="text" name="userName" id="userName" class="form-row-main-input form-row-main-input-normal" maxlength="35" />
+    			</td>
+    		</tr>
+    		<tr class="form-row-description">
+    			<td></td>
+    			<td><span class="form-input-hint form-input-hint-normal" id="userName-hint">必填，长度为4～16个字符</span></td>
+    		</tr>
+    		<!-- end -->
+    		<!-- start -->
+    		<tr class="form-row-main">
+    			<td class="form-row-main-label"><label for="password">密码</label></td>
+    			<td>
+    				<input type="password" name="password" id="password" class="form-row-main-input form-row-main-input-normal" maxlength="35" />
+    			</td>
+    		</tr>
+    		<tr class="form-row-description">
+    			<td></td>
+    			<td><span class="form-input-hint form-input-hint-normal" id="password-hint">必填，4～16位数字、字母或下划线组成</span></td>
+    		</tr>
+    		<!-- end -->
+    		<!-- start -->
+    		<tr class="form-row-main">
+    			<td class="form-row-main-label"><label for="confirmPassword">密码确认</label></td>
+    			<td>
+    				<input type="password" name="confirmPassword" id="confirmPassword" class="form-row-main-input form-row-main-input-normal" maxlength="35" />
+    			</td>
+    		</tr>
+    		<tr class="form-row-description">
+    			<td></td>
+    			<td><span class="form-input-hint form-input-hint-normal" id="confirmPassword-hint">必填，两次输入密码需保持一致</span></td>
+    		</tr>
+    		<!-- end -->
+    		<!-- start -->
+    		<tr class="form-row-main">
+    			<td class="form-row-main-label"><label for="mail">邮箱</label></td>
+    			<td>
+    				<input type="text" name="mail" id="mail" class="form-row-main-input form-row-main-input-normal" maxlength="35" />
+    			</td>
+    		</tr>
+    		<tr class="form-row-description">
+    			<td></td>
+    			<td><span class="form-input-hint form-input-hint-normal" id="email-hint">必填，邮箱格式需保持正确</span></td>
+    		</tr>
+    		<!-- end -->
+    		<!-- start -->
+    		<tr class="form-row-main">
+    			<td class="form-row-main-label"><label for="tel">手机</label></td>
+    			<td>
+    				<input type="text" name="tel" id="tel" class="form-row-main-input form-row-main-input-normal" maxlength="35" />
+    			</td>
+    		</tr>
+    		<tr class="form-row-description">
+    			<td></td>
+    			<td><span class="form-input-hint form-input-hint-normal" id="tel-hint">选填，电话号码格式需保持正确</span></td>
+    		</tr>
+    		<!-- end -->
+    		<tr class="form-row-description">
+    			<td></td>
+    			<td class="form-submit-btn-wrapper"><button type="button" id="submit-btn" class="form-submit-btn">提交</button></td>
+    		</tr>
+    	</table>
+    	
+    </form>
+
+<script>
+(function(){
+
+	var userNameInput=document.getElementById("userName");
+	var userNameHint=document.getElementById("userName-hint");
+	userNameInput.addEventListener("focus",function(){
+		userNameHint.style.visibility="visible";  //鼠标点击输入框后在输入框下方显示提示信息
+	});
+	userNameInput.addEventListener("blur",testName);  //输入框失去焦点时的提示
+	
+	function testName(){
+		//userNameHint.style.visibility="visible";//点击“提交”按钮时让提示语可见，判断每一项是否通过检验
+		var name=userNameInput.value.replace(/(^\s*)|(\s*$)/g,"");
+		var info=validateName(name);
+		setValidationInfo(userNameInput,userNameHint,info);
+		return info.flag;
+	}
+
+	function validateName(str){ //验证是否在4-16字符之间，一个汉字字符算两个字符长度
+		//ASCII码只针对英文字符，要针对中文字符建议用Unicode编码
+		//在unicode中所有字符都按照一个字符计算，即不论是中文字符还是英文字符通过length属性的到的长度都为1
+		var chineseCharacterCount=0;
+		for(var i=0;i<str.length;i++){
+			if(/[\u4E00-\u9FA5]/g.test(str[i])){ //\uxxxx是unicode编码的写法，表示一个字符
+				chineseCharacterCount++;
+			}
+		}
+		var info={
+			flag:1,
+			msg:"用户名可用"
+		};
+		var totalLength=str.length+chineseCharacterCount;
+		if(totalLength==0){
+			info.flag=0;
+			info.msg="用户名不能为空";
+		}else if(totalLength<4 || totalLength>16){
+			info.flag=0;
+			info.msg="用户名长度要求在4-16字符之间，1个汉字字符长度为2";
+		}
+		return info;
+	}
+
+	var passwordInput=document.getElementById("password");
+	var passwordHint=document.getElementById("password-hint");
+	passwordInput.addEventListener("focus",function(){
+		passwordHint.style.visibility="visible";
+	});
+	passwordInput.addEventListener("blur",testPassword);
+
+	function testPassword(){
+		//passwordHint.style.visibility="visible";
+		var password=passwordInput.value.replace(/(^\s*)|(\s*$)/g,"");
+		var info=validatePassword(password);
+		setValidationInfo(passwordInput,passwordHint,info);
+		return info.flag;
+	}
+
+	function validatePassword(str){
+		var info={
+			flag:1,
+			msg:"密码可用"
+		};
+		if(str.length==0){
+			info.flag=0;
+			info.msg="密码不能为空";
+		}else if(!(/^[0-9a-zA-Z_]{4,16}$/g.test(str))){
+			info.flag=0;
+			info.msg="密码格式不正确，由4-16字符的数字/字母/下划线组成";
+		}
+		return info;
+	}
+
+	var confirmPasswordInput=document.getElementById("confirmPassword");
+	var confirmPasswordHint=document.getElementById("confirmPassword-hint");
+	confirmPasswordInput.addEventListener("focus",function(){
+		var password=passwordInput.value.replace(/(^\s*)|(\s*$)/g,"");
+		if(password==0){ //规定必须先填写密码，再来确认密码
+			var info={
+				flag:0,
+				msg:"请先填写密码，在进行确认"
+			};
+			setValidationInfo(confirmPasswordInput,confirmPasswordHint,info);
+		}else{
+			confirmPasswordInput.className="form-row-main-input form-row-main-input-normal";
+			confirmPasswordHint.className="form-input-hint form-input-hint-normal";
+			confirmPasswordHint.innerHTML="必填，两次输入密码需保持一致";
+		}
+		confirmPasswordHint.style.visibility="visible";
+	});
+	confirmPasswordInput.addEventListener("blur",testConfirmPassword);
+	function testConfirmPassword(){
+		//confirmPasswordHint.style.visibility="visible";
+		var confirmPassword=confirmPasswordInput.value.replace(/(^\s*)|(\s*$)/g,"");
+		var info=validateConfirmPassword(confirmPassword);
+		setValidationInfo(confirmPasswordInput,confirmPasswordHint,info);
+		return info.flag;
+	}
+	function validateConfirmPassword(str){
+		var info={
+			flag:1,
+			msg:"两次输入一致"
+		};
+		var password=passwordInput.value.replace(/(^\s*)|(\s*$)/g,"");
+		if(password.length==0){
+			info.flag=0;
+			info.msg="请先填写密码，在进行确认";
+			return info;
+		}
+		if(str.length==0){
+			info.flag=0;
+			info.msg="确认密码不能为空";
+		}else if(str!=password){
+			info.flag=0;
+			info.msg="两次输入不一致";
+		}
+		return info;
+	}
+
+
+	var emailInput=document.getElementById("mail");
+	var emailHint=document.getElementById("email-hint");
+	emailInput.addEventListener("focus",function(){
+		emailHint.style.visibility="visible";
+	});
+	emailInput.addEventListener("blur",testEmail);
+	function testEmail(){
+		//emailHint.style.visibility="visible";
+		var email=emailInput.value.replace(/(^\s*)|(\s*$)/g,"");
+		var info=validateEmail(email);
+		setValidationInfo(emailInput,emailHint,info);
+		return info.flag;
+	}
+
+	function validateEmail(str){
+		var info={
+			flag:1,
+			msg:"邮箱格式正确"
+		};
+		if(str.length==0){
+			info.flag=0;
+			info.msg="邮箱为必填项";
+		}else if(!(/^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g.test(str))){
+			info.flag=0;
+			info.msg="邮箱格式不正确";
+		}
+		return info;
+	}
+
+
+	var telInput=document.getElementById("tel");
+	var telHint=document.getElementById("tel-hint");
+	telInput.addEventListener("focus",function(){
+		telHint.style.visibility="visible";
+	});
+	telInput.addEventListener("blur",testTel);
+	function testTel(){
+		//telHint.style.visibility="visible";
+		var tel=telInput.value.replace(/(^\s*)|(\s*$)/g,"");
+		var info=validateTel(tel);
+		setValidationInfo(telInput,telHint,info);
+		return info.flag;
+	}
+	function validateTel(str){
+		var info={
+			flag:1,
+			msg:"手机号码可以不填"
+		};
+		if(str.length!=0 && !(/^1[3|4|5|7|8][0-9]{9}$/.test(str))){ //要么不填，填了格式就要正确
+			info.flag=0;
+			info.msg="手机号码格式不正确";
+		}
+		return info;
+	}
+
+	function setValidationInfo(inputControl,form_input_hint,info){ //将验证的结果反馈给用户
+		switch(info.flag){
+			case 0:
+				inputControl.className="form-row-main-input form-row-main-input-error";
+				form_input_hint.className="form-input-hint form-input-hint-error";
+				form_input_hint.innerHTML=info.msg;
+				break;
+			case 1:
+				inputControl.className="form-row-main-input form-row-main-input-ok";
+				form_input_hint.className="form-input-hint form-input-hint-ok";
+				form_input_hint.innerHTML=info.msg;
+				break;
+		}
+	}
+
+
+	//点击提交按钮
+	var submitBtn=document.getElementById("submit-btn");
+	submitBtn.addEventListener("click",function(){
+		if(testName()){ //从上到下进行检验，中途检验不通过就终止
+			if(testPassword()){
+				if(testConfirmPassword()){
+					if(testEmail()){
+						if(testTel()){
+							alert("验证通过");
+							//实际中应该进行提交操作
+						}
+					}
+				}
+			}
+		}
+	});
+})();
+
+
+</script>
+
+
+<script>
+	
+	(function(){
+		var userNameInput = document.getElementById("userName");
+		var userNameHint 
+	})
+
+</script>
+
+
+</body>
+</html>

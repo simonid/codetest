@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>表单（三）联动</title>
+	<style>
+			body {
+				font-family: "微软雅黑";
+				width: 500px;
+				margin: 0 auto;
+				margin-top: 100px;
+			}
+			
+			input[type=radio] {
+				margin-bottom: 10px;
+				width: 30px
+			}
+			label{
+				margin-right: 20px;
+			}
+			
+			select {
+				width: 150px;
+				margin-right: 20px;
+				margin-bottom: 10px;
+				border-radius: 3px;
+			}
+			
+			input[type=text] {
+				width: 200px;
+				height: 20px;
+				border-radius: 5px;
+			}
+			
+			div {
+				margin-bottom: 10px;
+			}
+			
+			#school_container {
+				display: none;
+			}
+			
+			#com_container {
+				display: none;
+			}
+		</style>
+</head>
+<body>
+	
+	<div>
+			<input type="radio" name="student" id="student" value="在校生" />在校生
+			<input type="radio" name="student" id="not_student" value="非在校生" />非在校生
+	</div>
+	<div id="school_container">
+		<label for="city">学校</label>
+		<select name="city" id="city">
+			<option value="请选择" selected="">请选择</option>
+			<option value="北京">北京</option>
+			<option value="广州">广州</option>
+		</select>
+		<select name="" id="school">
+			<option value="请选择" selected="">请选择</option>
+		</select>
+	</div>
+
+	<div id="com_container">
+		<label for="company">事业单位</label>
+		<input type="text" id="company" value="">
+	</div>
+
+
+	<script>
+		var school_container = document.getElementById("school_container");
+		var com_container = document.getElementById("com_container");
+		document.getElementById("student").onclick = function(){
+			school_container.style.display = 'block';   //显示在校生表单信息
+			com_container.style.display = 'none';       //不显示非在校生表单
+		};
+
+		document.getElementById("not_student").onclick = function(){
+			school_container.style.display = 'none';
+			com_container.style.display = "block";
+		};
+
+
+		var schools = {
+			'请选择':['请选择'],
+			'北京':['北京大学','清华大学'],
+			'广州':['中山大学','华南理工大学']
+		};
+
+		function changeSchool(city,school){
+			var index = city.selectedIndex;  //选中的城市编号
+			var cityValue = city.options[index].value;  //选中的城市
+
+			school.innerHTML = '';
+
+			schools[cityValue].forEach(function(val,index,arr){  //生成学校的表单
+				var option = document.createElement('option');
+				option.text = val;
+				option.value = val;
+				school.appendChild(option);  
+			});
+		}
+
+		var city = document.getElementById('city');
+		var school = document.getElementById('school');
+		city.addEventListener('change',function(){
+			changeSchool(city,school);
+		});
+	</script>
+
+</body>
+</html>

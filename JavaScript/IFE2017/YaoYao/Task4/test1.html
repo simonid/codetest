@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>任务四：听指令的小方块</title>
+	<!-- <link rel="stylesheet" href=""> -->
+	<style>
+		* {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 85%;
+    margin: 15px auto;
+}
+
+.panel {
+    display: flex;
+    padding: 20px;
+    box-shadow: 1px 0 5px 0 #ddd, -1px 0 5px 0 #ddd;
+}
+
+table {
+    border-collapse: collapse;
+    margin: auto;
+}
+
+table, th, td {
+    border: 1px solid #e0e0e0;
+}
+
+td {
+    box-sizing: border-box;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    position: relative;
+}
+
+.block {
+    box-sizing: border-box;
+    width: 50px;
+    height: 50px;
+    transition: all .5s;
+}
+
+.block-head {
+    height: 10px;
+    background-color: brown;
+}
+
+.block-body {
+    height: 40px;
+    background-color: cornflowerblue;
+}
+
+.control {
+    
+}
+
+.btn {
+    display: inline-block;
+    min-width: 5rem;
+    min-height: 2rem;
+    border: 1px solid #2256c8;
+    border-radius: 5px;
+    outline: none;
+    background-color: #2256c8;
+    color: white;
+    cursor: pointer;
+    transition: color .3s, background-color .3s;
+}
+
+.btn:hover {
+    color: #2256c8;
+    background-color: white;
+}
+
+
+	</style>
+</head>
+<body>
+	
+	<div class="container">
+		<div class="panel">
+			<table>
+				<thead></thead>
+				<tbody>
+					<tr>
+						<td></td>
+						<td>1</td>
+						<td>2</td>
+						<td>3</td>
+						<td>4</td>
+						<td>5</td>
+						<td>6</td>
+						<td>7</td>
+						<td>8</td>
+						<td>9</td>
+						<td>10</td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>
+							<div class="block" id="block" style="transform:rotate(0deg);position:absolute;left:0;top:0">
+								<div class="block-head"></div>
+								<div class="block-body"></div>
+							</div>
+						</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+                        <td>2</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+				</tbody>
+				<tfoot></tfoot>
+			</table>
+
+			<div class="control">
+				<div class="btns">
+					<button class="btn" id="go">GO</button>
+					<button class="btn" id="turn-left">Turn Left</button>
+					<button class="btn" id="turn-right">Turn Right</button>
+					<button class="btn" id="turn-back">Turn Back</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		function getAngle(ele,angle){
+			if(arguments.length === 1){
+				var text = ele.style.transform;
+				text = text.substring(7,text.length);
+				text = parseInt(text);
+				return text;
+			}
+
+			if(arguments.length === 2){
+				ele.style.transform = "rotate(" + angle + "deg)";
+			}
+		}
+
+		function $(id){
+			return document.getElementById(id.substring(1,id.length));
+		}
+
+		function turnLeft(){
+			var block = $("#block"),
+				angleNow = getAngle(block);
+			angleNow = angleNow - 90;
+			getAngle(block,angleNow);
+		}
+
+		function turnRight(){
+			var block = $("#block"),
+				angleNow = getAngle(block);
+			angleNow = angleNow + 90;
+			getAngle(block,angleNow);
+		}
+
+		function turnBack() {
+    		var block = $("#block"),
+        		angleNow = getAngle(block);   
+    		angleNow = angleNow + 180; 
+   	 		getAngle(block, angleNow);
+}
+
+		function Go(){
+			var block = $("#block"),
+        		angleNow = getAngle(block);
+
+			angleNow = angleNow % 360;
+			angleNow = angleNow >= 0 ? angleNow : (angleNow + 360);
+
+			var left = parseInt(block.style.left),
+				top = parseInt(block.style.top);
+
+			if(angleNow == 0){
+				if(top>=50)
+					block.style.top = top -50 + 'px';
+			}
+			if(angleNow == 90){
+				if(left <= 400)
+						block.style.left = left + 50 + 'px';
+			}
+			if(angleNow == 180){
+				if(top <= 400)
+					block.style.top = top + 50 + "px";
+			}
+			if(angleNow == 270){
+				if(left >= 50)
+					block.style.left = left - 50 + 'px';
+			}
+			
+		}
+
+		function bindEventForBtn(){
+			$("#go").onclick = Go;
+			$("#turn-left").onclick = turnLeft;
+			$("#turn-right").onclick = turnRight;
+			$("#turn-back").onclick = turnBack;
+		}
+
+		window.onload = bindEventForBtn;
+	</script>
+
+</body>
+</html>

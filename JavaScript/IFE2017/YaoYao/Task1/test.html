@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>表单（一）单个表单项的检验</title>
+	<link rel="stylesheet" href="">
+	<style>
+		
+		span{
+			display: block;
+			font-size: 18px;
+			margin-top:5px;
+		}
+		span:before{
+			content: " ";
+			width: 56px;
+			margin-right: 10px;
+			display: inline-block;
+		}
+		form{
+			margin:100px 0 0 30px;
+			font-family:"微软雅黑";
+			font-size: 0px;
+		}
+		input,button{
+			border-radius: 5px;
+			border-width: 1px;
+			border-style: solid;
+			height: 30px;
+			box-sizing: border-box;
+			font-size: 20px;
+		}
+		input{
+			width:300px;
+			text-indent: 5px;
+		}
+		button{
+			margin-left: 10px;
+			background-color: #2f79ba;
+			color: #fff;
+			padding:0 10px;
+		}
+		label{
+			display: inline-block;
+			width:56px;
+			font-size:20px;
+			margin-right: 10px;
+			font-weight: bold;
+		}
+	
+	</style>
+</head>
+<body>
+	<form action="">
+		<label>名称</label>
+		<input type="text" style="border-color: #b2b2b2;" name="Input">
+		<button id="Btn" type="button">验证</button>
+		<span id="tip1"></span>
+	</form>
+
+	<script>
+		(function(){
+			var Btn = document.getElementById('Btn');
+			function getLength(str){
+				var re = /[\u4E00-\u9FA5-\u9F00-\uFA2D]/;
+				var length = 0;
+				for(var i = 0;i < str.length;i++){
+					if(re.test(str[i])) length+=2; //汉字长度为2
+					else length++;
+				}
+				return length;
+			}
+			Btn.onclick = function(){
+				var input = document.getElementsByTagName('form')[0].Input;
+				var text = input.value;
+				var span = document.getElementsByTagName('span')[0];
+				if(text == null || text == ""){
+					span.innerHTML = "姓名不能为空"
+					span.style.color="red";
+				}else if(getLength(text)<4 || getLength(text)>16){
+					span.innerHTML = "长度需要是4-16各字符，汉字为两个字符"
+					span.style.color = '#e20007';
+				}else{
+					input.style.borderColor = '#e20007';
+					input.style.borderColor = '#5cbf41';
+					span.innerHTML = "名称格式正确";
+					span.style.color = '#5cbf41';
+				}
+			};
+		})();
+	</script>
+</body>
+</html>
