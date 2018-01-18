@@ -1,0 +1,277 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <style>
+            body,html{ width: 100%; background-color: #2E2E2E; }
+            *{padding:0; margin:0;}
+            li{list-style:none;}
+            img{border:none;}
+            .slide{position:relative; margin:10% auto; width:500px; overflow:hidden;}
+            .slide .big{ position:relative; overflow:hidden; left:0;top:0;}
+            .slide a{position:absolute; top:220px; opacity:0;z-index:1000;}
+            .slide .big li{float:left; width:500px;}
+            .slide .big  li img{width:100%;display:block;}
+            .slide .prev{left:-10px;}
+            .slide .next{right:-10px;}
+            .slide .small{ margin-top:5px; width:100%; position:relative;}
+            .slide .small li{ float:left;margin-right:5px; width:121px; background:#000;}
+            .slide .small li:last-child{ margin-right:0;}
+            .slide .small li img{width:100%;display:block; opacity:0.5;}
+        </style>
+        <script src="./index.js"></script>
+        <script src="./function.js"></script>
+    </head>
+    <body>
+        <div class="slide" id="slide_lb">
+            <a href="#" class="prev"><img src="" alt=""><img src="" alt=""></a>
+            <ul class="big">
+                <li><img src="http://ww1.sinaimg.cn/large/0060lm7Tly1flaohjuyxdj3083062q30.jpg" alt=""></li>
+                <li><img src="http://ww4.sinaimg.cn/large/0060lm7Tly1flaohk9gmej30g40bpmxk.jpg" alt=""></li>
+                <li><img src="http://ww1.sinaimg.cn/large/0060lm7Tly1flaohkftkhj30jd0awwfg.jpg" alt=""></li>
+                <li><img src="http://ww4.sinaimg.cn/large/0060lm7Tly1flaohr2otaj31e00xcq7a.jpg" alt=""></li>
+                <li><img src="http://ww2.sinaimg.cn/large/0060lm7Tly1flaohububmj311y0lcdof.jpg" alt=""></li>
+            </ul>
+            <ol class="small">
+                <li><img src="http://ww1.sinaimg.cn/large/0060lm7Tly1flaohjuyxdj3083062q30.jpg" alt=""></li>
+                <li><img src="http://ww4.sinaimg.cn/large/0060lm7Tly1flaohk9gmej30g40bpmxk.jpg" alt=""></li>
+                <li><img src="http://ww1.sinaimg.cn/large/0060lm7Tly1flaohkftkhj30jd0awwfg.jpg" alt=""></li>
+                <li><img src="http://ww4.sinaimg.cn/large/0060lm7Tly1flaohr2otaj31e00xcq7a.jpg" alt=""></li>
+                <li><img src="http://ww2.sinaimg.cn/large/0060lm7Tly1flaohububmj311y0lcdof.jpg" alt=""></li>
+            </ol>
+        </div>
+
+
+        
+    </body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>商品详情轮播图</title>
+    <style>
+    body,html{ width: 100%; background-color: #2E2E2E; }
+    *{padding:0; margin:0;}
+    li{list-style:none;}
+    img{border:none;}
+    .slide{position:relative; margin:10% auto; width:500px; overflow:hidden;}
+    .slide .big{ position:relative; overflow:hidden; left:0;top:0;}
+    .slide a{position:absolute; top:100px; opacity:0;z-index:1000;}
+    .slide .big li{float:left; width:500px;}
+    .slide .big  li img{width:100%;display:block;}
+    .slide .prev{left:-10px;}
+    .slide .next{right:-10px;}
+    .slide .big{
+        width:500px;
+        height:300px;
+    }
+    .slide .small{
+        height:80px;
+    }
+    .small li{
+        height:100%;
+    }
+    .small li img{
+        height:100%;
+    }
+    .slide .small{ margin-top:5px; width:100%; position:relative;}
+    .slide .small li{ float:left;margin-right:5px; width:121px; background:#000;}
+    .slide .small li:last-child{ margin-right:0;}
+    .slide .small li img{width:100%;display:block; opacity:0.5;}
+    </style>
+</head>
+
+<body>
+    <div class="slide" id="single_lb">
+        <a href="javascript:;" class="prev"><img src="./prev.png"></a>
+        <a href="javascript:;" class="next"><img src="./next.png"></a>
+        <ul class="big">
+                <li><img src="http://ww1.sinaimg.cn/large/0060lm7Tly1flaohjuyxdj3083062q30.jpg" alt=""></li>
+                <li><img src="http://ww4.sinaimg.cn/large/0060lm7Tly1flaohk9gmej30g40bpmxk.jpg" alt=""></li>
+                <li><img src="http://ww1.sinaimg.cn/large/0060lm7Tly1flaohkftkhj30jd0awwfg.jpg" alt=""></li>
+                <li><img src="http://ww4.sinaimg.cn/large/0060lm7Tly1flaohr2otaj31e00xcq7a.jpg" alt=""></li>
+                <li><img src="http://ww2.sinaimg.cn/large/0060lm7Tly1flaohububmj311y0lcdof.jpg" alt=""></li>
+        </ul>
+        <ol class="small">
+                <li><img src="http://ww1.sinaimg.cn/large/0060lm7Tly1flaohjuyxdj3083062q30.jpg" alt=""></li>
+                <li><img src="http://ww4.sinaimg.cn/large/0060lm7Tly1flaohk9gmej30g40bpmxk.jpg" alt=""></li>
+                <li><img src="http://ww1.sinaimg.cn/large/0060lm7Tly1flaohkftkhj30jd0awwfg.jpg" alt=""></li>
+                <li><img src="http://ww4.sinaimg.cn/large/0060lm7Tly1flaohr2otaj31e00xcq7a.jpg" alt=""></li>
+                <li><img src="http://ww2.sinaimg.cn/large/0060lm7Tly1flaohububmj311y0lcdof.jpg" alt=""></li>
+        </ol>
+
+    </div>
+
+    <script>
+            window.onload=function()
+    {
+        var aSlide=document.getElementById('single_lb');  //需要绑定ID才能使用getByClass中的getElementsByTagName
+        var aBig=getByClass(aSlide,'big')[0];
+        var aBigLi=aBig.getElementsByTagName('li');
+        var aSmall=getByClass(aSlide,'small')[0];
+        var aSmallLi=aSmall.getElementsByTagName('li');
+        var aSmallImg=aSmall.getElementsByTagName('img')
+        var aPrev=getByClass(aSlide,'prev')[0];
+        var aNext=getByClass(aSlide,'next')[0];
+        var now=0;
+        aBig.style.width=aBigLi[0].offsetWidth*aBigLi.length+'px';
+        aSmall.style.width=(aSmallLi[0].offsetWidth+10)*aSmallLi.length+'px';
+        
+        aNext.onmouseover=aPrev.onmouseover=aBig.onmouseover=function()
+        {
+            startMove(aPrev,'opacity',70);
+            startMove(aNext,'opacity',70);
+        }
+        aNext.onmouseout=aPrev.onmouseout =aBig.onmouseout=function()
+        {
+            startMove(aPrev,'opacity',0);
+            startMove(aNext,'opacity',0);
+        }
+        aSlide.onmouseover=function()
+        {
+            clearInterval(timer);	
+        }
+        aSlide.onmouseout=function()
+        {
+            timer=setInterval(aNext.onclick,3000)	
+        }
+        for(var i=0;i<aSmallLi.length;i++)
+        {
+            
+            aSmallLi[i].index=i;
+            
+            aSmallLi[i].onclick=function()
+            {
+                if(this.index==now)return;
+                now=this.index;
+                
+                tab();
+            }
+        }
+        aPrev.onclick=function()
+        {
+            now--;
+            if(now==-1)
+            {
+                now=aSmallLi.length-1;	
+            }
+            tab();
+        }
+        aNext.onclick=function()
+        {
+            now++;
+            if(now>aSmallLi.length-1)
+            {
+                now=0;	
+            }
+            tab();
+        }
+        function tab()
+        {
+            startMove(aBig,'left',-now*aBigLi[0].offsetWidth)
+            if(now==0)
+            {
+                startMove(aSmall,'left',0)	
+            }
+            else if(now==aSmallLi.length-1)
+            {
+                startMove(aSmall,'left',-(now-3)*(aSmallLi[0].offsetWidth+5))	
+            }
+            else if(now==aSmallLi.length-2)
+            {
+                startMove(aSmall,'left',-(now-2)*(aSmallLi[0].offsetWidth+5))	
+            }
+            
+            else
+            {
+                startMove(aSmall,'left',-(now-1)*(aSmallLi[0].offsetWidth+5));
+            }
+            for(var i=0;i<aSmallImg.length;i++)
+            {
+                aSmallImg[i].index=i;
+                startMove(aSmallImg[i],'opacity',50);
+                aSmallImg[i].onmouseover=function()
+                {
+                    startMove(this,'opacity',100)	
+                }
+                aSmallImg[i].onmouseout=function()
+                {
+                    if(now!=this.index)
+                    {
+                        startMove(this,'opacity',50)
+                    }
+                }	
+            }
+            startMove(aSmallImg[now],'opacity',100);		
+        }
+        var timer=setInterval(aNext.onclick,3000);
+        
+    }
+
+    function getByClass(aParent,sClass)
+    {
+        var aEle=aParent.getElementsByTagName('*');
+        var aResult=[];
+        for(var i=0;i<aEle.length;i++)
+        {
+            if(aEle[i].className==sClass)
+            {
+                aResult.push(aEle[i])	
+            }
+        }
+        return aResult;
+    }
+    function getStyle(obj,name)
+    {
+        if(obj.currentStyle)
+        {
+            return obj.currentStyle[name];	
+        }
+        else
+        {
+            return getComputedStyle(obj,false)[name];	
+        }
+    }
+    function startMove(obj,attr,iTarget,fnEnd)
+    {
+        clearInterval(obj.timer);
+        obj.timer=setInterval(function(){
+            var cur=0;
+            if(attr=='opacity')
+            {
+                cur=Math.round((getStyle(obj,attr))*100);	
+            }
+            else
+            {
+                cur=parseInt(getStyle(obj,attr))	
+            }
+            var speed=(iTarget-cur)/7;
+            speed=speed>0?Math.ceil(speed):Math.floor(speed);
+            if(cur==iTarget)
+            {
+                clearInterval(obj.timer);
+                if(fnEnd)fnEnd();
+            }
+            else
+            {	
+                if(attr=='opacity')
+                {
+                    obj.style.filter='alpha(opacity:'+(cur+speed)+')';
+                    obj.style.opacity=(cur+speed)/100;	
+                }
+                else
+                {
+                    obj.style[attr]=cur+speed+'px';
+                }
+            }
+        },30)	
+    }
+    </script>
+</body>
+</html>

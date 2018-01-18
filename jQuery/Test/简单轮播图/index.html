@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>简单轮播图demo</title>
+	<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+	
+	<div class="carousel-content">
+		<ul class="carousel">
+			<li><img src="" alt=""></li>
+			<li><img src="" alt=""></li>
+			<li><img src="" alt=""></li>
+			<li><img src="" alt=""></li>
+			<li><img src="" alt=""></li>
+		</ul>
+		<ul class="img-index"></ul>
+		<div class="carousel-prev"><img src="" alt=""></div>
+		<div class="carousel-next"><img src="" alt=""></div>
+	</div>
+
+	<script src="E:/codetest/codetest/Source/jQuery/jQuery2.0.0/jquery.js"></script>
+	<script type="text/javascript" src="./carousel.js"></script>
+
+	<script>
+		$(function(){
+			$(".caousel-content").carousel({
+				carousel : ".carousel", //轮播图容器
+				indexContainer : ".img-index", //下标容器
+				prev : ".carousel-prev", //上一张
+				next : ".carousel-next", //下一张
+				time : 5000, //自动播放时间间隔
+				animateTime : 800, //动画时间
+				auto : true, //是否自动播放
+			})；
+
+			$(".carousel-prev").hover(function(){
+				$(this).find("img").attr("src","");
+			},function(){
+				$(this).find("img").attr("src","");
+			});
+			$("carousel-next").hover(function(){
+				$(this).find("img").attr("src","");
+			},function(){
+				$(this).find("img").attr("src","");
+			});
+		});
+	</script>
+
+</body>
+</html>
